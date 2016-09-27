@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zbModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="ctr1">
+        {{name}}
+        {{age}}
+    </div>
+
+<div ng-controller="ctr2">
+    {{name}}
+    {{age}}
+</div>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('zbModule',[]);
+
+//    尽量不要将rootScope 拉到控制器下声明，不好维护
+    app.run(function ($rootScope){
+
+        //一般用来初始化变量
+        $rootScope.name = 'zfpx';
+    });
+
+    //run 防压缩写法
+    app.run(['$rootScope',function ($rootScope){
+
+    }])
+
+
+    app.controller('ctr1',function ($scope){
+        $scope. name = '控制器1';
+    })
+    app.controller('ctr2',function ($scope){
+        $scope.name = '控制器2';
+    })
+
+    //控制器和我们的dom标签是平行的，作用范围就是当前标签的管理范围
+    //控制器可以平行使用
+    //控制器可以嵌套，将dom进行嵌套而不是控制器
+
+    //angular代码压缩会出错  给我们提供了数组的写法防止压缩，原因是字符串不会被压缩
+    app.controller('str2',['$scope',function ($scope){}])
+
+
+</script>
+</html>

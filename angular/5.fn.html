@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zbModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="ctr1">
+
+        {{age}}
+        <button ng-click="add()">增加age</button>
+
+        <!--  angular 下的事件前都加 ng-事件名   -->
+    </div>
+
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+
+    var app = angular.module('zbModule',[]);
+
+    app.controller('ctr1',['$scope',function (a){
+
+
+       /* a.fn = function (){
+            return 100;     //angular 是双向绑定，是通过脏值检查来做的，如果数据变了脏值检查至少要两次
+        }*/
+        a. age = 1;
+        a.add = function (){
+            a.age++;
+        }
+
+
+    }])
+
+</script>
+</html>

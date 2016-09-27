@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [ng-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<input type="text" ng-model="name">
+<input type="text" ng-model="age">
+<div ng-bind="name"></div>
+<div ng-bind-template="{{name}} {{age}}"></div>
+<!--{{name?name:'珠峰'}}  &lt;!&ndash;可以做判断&ndash;&gt;-->
+<!--{{3+9+2}}   &lt;!&ndash;可以运算&ndash;&gt;-->
+<div ng-cloak>
+    {{name}}
+    <div>
+        {{age}}
+        {{name}}
+    </div>
+</div>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+
+    //angular JS 中可以使用三元表达式
+    //默认表达式会造成页面的闪烁，因为angular未加载完 导致的页面闪烁
+    //ng-bind指令绑定单一的数据 避免闪烁  ，必须加在标签元素下,不能绑定多个
+
+    //ng-bind-template  绑定多个属性，也不能嵌套
+
+    //ng-cloak  防止闪烁  实现原理：先将div隐藏掉，当angular加载完成后，再让其显示
+
+    //{{}}会闪烁
+        /*ng-bind只能绑定一个元素，并且不能嵌套
+        ng-bind-template 绑定多个元素 不能嵌套
+        ng-cloak 感慨是隐藏，angular加载完成后，会将ng-cloak属性移除掉，将渲染好的数据显示在页面上*/
+
+    //此时所有数据都绑定在了 ===================================================================================根作用域下
+</script>
+</html>

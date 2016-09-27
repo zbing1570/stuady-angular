@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+    <table class="table table-bordered" ng-controller="carCtl">
+        <tr>
+            <td><input type="checkbox" ng-model="selectAll" ng-click="mfn(value.selected)">全选</td>
+            <td>商品</td>
+            <td>数量</td>
+            <td>单价</td>
+            <td>小计</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="value in products">
+            <td><input type="checkbox" ng-model="value.selected" ng-click="fn(value.selected)"></td>
+            <td>{{value.name}}</td>
+
+            <!--ng-disabled 如果为true时候 此按钮会被禁用掉-->
+            <td><button ng-click="value.count=value.count-1" ng-disabled="value.count<=1">-</button>
+                <input type="text" ng-model="value.count">
+                <button ng-click="value.count=value.count+1">+</button>
+            </td>
+            <td>{{value.price}}</td>
+            <td>{{value.count*value.price}}</td>
+
+            <!--将想要删除的数据传递给函数-->
+            <td><button class="btn btn-danger" ng-click="mydel(value)">删除</button></td>
+        </tr>
+        <tr>
+            <td colspan="6">总价 <span style="font-size:25px;">{{total()}}</span></td>
+        </tr>
+    </table>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+
+    var app = angular.module('appModule',[]);
+    app.controller('carCtl',function ($scope){
+        $scope.products = [
+            {name:'手机手机手机',price:44,count:1},
+            {name:'书书书书书',price:32,count:1},
+            {name:'Dell电脑',price:50,count:1},
+        ];
+        $scope.mydel = function (theValue){
+            $scope.products = $scope.products.filter(function (item){
+                return theValue != item;   //返回为true的
+            })
+        }
+
+
+        //球总价，循环出每一项进行累加求和，此方法，当页面上的数据更改时，angular会做脏值检查，更新需要更新的值
+        $scope.total = function (){
+            var sum = 0;
+            $scope.products.forEach(function (value){
+                sum += value.price * value.count
+            });
+            return sum;
+        }
+
+        $scope.fn = function (val){
+            //选择后进行判断，如果有一个没选中则为没选中，如果都选中了则为true
+            var flag = true;
+            $scope.products.forEach(function (item){
+                if(!item.selected) flag = false;
+            })
+            $scope.selectAll = flag;
+        }
+
+
+        //这个是全选 按钮
+        $scope.mfn = function (val){
+            $scope.products.forEach(function (item){
+
+            console.log($scope.selectAll)
+                item.selected = $scope.selectAll;
+                /*if(val){
+                    item.selected = true;
+                }else{
+                    item.selected = false;
+                }*/
+            })
+        }
+
+        //选中了多少个商品
+
+
+        //删除选中商品
+
+
+        //只计算选中的商品的价格
+
+
+
+
+    })
+
+    /*
+    *
+    * filter 过滤
+    * find  过滤 返回新对象
+    * map   用来修改
+    *
+    * */
+</script>
+</html>

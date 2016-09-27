@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zbModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="cont1">
+        {{name}}
+    </div>
+{{name}}
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+
+    //要模块化，要制定当前HTML以哪一个模块来运行
+    //angularJS 一切从模块开始，创建模块 通过angular对象创建模块
+
+    //第一个值 模块的名字，如果为启动模块则需要和我们app的名字相同
+    //第二个值 依赖的模块，如果没有  用空数组，不写空数组表示获取，写了是创建
+    //第三个至 配置函数
+    angular.module('abModule',[]);
+
+    //通过模块来创建我们的控制器
+    //第一个参数 为控制器的名字
+    //第二个参数 为控制器的函数  有一个作用域 $scope
+    angular.module('zbModule').controller('cont1',function ($scope){
+            //$scope 作用域
+        $scope.name='aaa';  //在当前作用域下增加name属性
+    });
+    //告诉作用域应用到哪里
+</script>
+</html>
